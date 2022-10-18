@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="5sp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textPlain_date_departure2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Heure de départ"
+            app:layout_constraintBottom_toTopOf="@+id/textPlain_airport_departure2"
+            app:layout_constraintEnd_toEndOf="@+id/textPlain_airport_departure2" />
+
+        <TextView
+            android:id="@+id/textPlain_airport_departure2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aeroport de départ"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textPlain_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Code de l'avion"
+            app:layout_constraintBottom_toTopOf="@+id/textPlain_date_arrival"
+            app:layout_constraintStart_toStartOf="@+id/textPlain_date_arrival" />
+
+        <TextView
+            android:id="@+id/textPlain_date_arrival"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Heure de départ"
+            app:layout_constraintBottom_toTopOf="@+id/textPlain_airport_arrival"
+            app:layout_constraintStart_toStartOf="@+id/textPlain_airport_arrival" />
+
+        <TextView
+            android:id="@+id/textPlain_airport_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aeroport de départ"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:background="#E91E63"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textPlain_date_departure2"
+            app:layout_constraintStart_toEndOf="@+id/textPlain_date_arrival"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTime_traveling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Durée du vol"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
