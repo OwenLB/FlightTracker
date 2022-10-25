@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class FlightListActivity : AppCompatActivity() {
@@ -26,19 +27,20 @@ class FlightListActivity : AppCompatActivity() {
 
         viewModel.doRequest(begin, end, isArrival, icao!!)
 
-        viewModel.getFlightListLiveData().observe(this, Observer {
+        //viewModel.getFlightListLiveData().observe(this, Observer {
             //findViewById<TextView>(R.id.textView).text = it.toString()
 
             //Récupérer le recyclerview
-            val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+            //val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
             //Attacher un adapter
-            recyclerView.adapter = FlightListAdapter(it)
+            //recyclerView.adapter = FlightListAdapter(it, this)
 
             //Attacher un layout manager à la recyclerview
-            recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        })
+            //recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        //})
     }
+
 }
 
 
