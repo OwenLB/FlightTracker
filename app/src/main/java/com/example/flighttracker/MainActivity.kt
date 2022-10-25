@@ -2,9 +2,13 @@ package com.example.flighttracker
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -30,13 +34,14 @@ class MainActivity : AppCompatActivity() {
         beginDateLabel.setOnClickListener { showDatePickerDialog(MainViewModel.DateType.BEGIN) }
         endDateLabel.setOnClickListener { showDatePickerDialog(MainViewModel.DateType.END) }
 
+        val airportSpinner = findViewById<Spinner>(R.id.airport_spinner)
+
         viewModel.getAirportNamesListLiveData().observe(this) {
             val adapter = ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_dropdown_item, it
             )
 
-            val airportSpinner = findViewById<Spinner>(R.id.airport_spinner)
             airportSpinner.adapter = adapter
         }
 
@@ -49,6 +54,25 @@ class MainActivity : AppCompatActivity() {
             endDateLabel.text = Utils.dateToString(it.time)
         }
 
+        findViewById<Button>(R.id.button).setOnClickListener {
+            val begin = viewModel.getBeginDateLiveData().value!!.timeInMillis / 1000
+
+            val end = viewModel.getEndDateLiveData().value!!.timeInMillis / 1000
+
+            val selectedAirportIndex = airportSpinner.selectedItemPosition
+            val airport = viewModel.getAirportListLiveData().value!![selectedAirportIndex]
+            val icao = airport.icao
+            val isArrival = findViewById<Switch>(R.id.airport_switch).isChecked
+
+            val intent = Intent(this, FlightListActivity::class.java)
+
+            intent.putExtra("BEGIN",begin)
+            intent.putExtra("END",end)
+            intent.putExtra("IS_ARRIVAL",isArrival)
+            intent.putExtra("ICAO",icao)
+
+            startActivity(intent)
+        }
 
     }
 
