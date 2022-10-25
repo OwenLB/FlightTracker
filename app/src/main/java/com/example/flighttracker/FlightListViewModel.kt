@@ -7,9 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.xml.sax.Parser
 
 class FlightListViewModel : ViewModel() {
 
@@ -40,7 +43,21 @@ class FlightListViewModel : ViewModel() {
                 RequestManager.getSuspended(url, param)
             }
 
-            Log.i("REQUEST", "result: $result")
+            if(result != null) {
+                Log.i("REQUEST", "result: $result")
+
+                val flightList = ArrayList<FlightModel>()
+                val parser = JsonParser()
+                val jsonElement = parser.parse(result)
+
+                for (flightObject in jsonElement.asJsonArray) {
+                    flightList.add(Gson().fromJson(flightObject.asJsonObject, FlightModel::class.java))
+                }
+
+                setFlightListLiveData(flightList)
+            } else {
+                Log.i("REQUEST", "result: null")
+            }
         }
     }
 }
