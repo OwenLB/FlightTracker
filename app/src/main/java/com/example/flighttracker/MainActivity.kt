@@ -1,41 +1,78 @@
 package com.example.flighttracker
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.view.View
-import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import java.lang.reflect.Field
+import androidx.lifecycle.ViewModelProvider
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
-    lateinit var spinner: Spinner
+
+    private lateinit var viewModel: MainViewModel
+
+    private lateinit var beginDateLabel: TextView
+    private lateinit var endDateLabel: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val airportsList = Utils.generateAirportList()
         setContentView(R.layout.activity_main)
-        title = "Flight Tracker"
-        spinner = findViewById(R.id.spinnerAirports)
-        val formatedAirportsList: MutableList<String?> = ArrayList()
-        for (item: Airport in airportsList) {
-            formatedAirportsList.add(item.getFormattedName());
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        beginDateLabel = findViewById<TextView>(R.id.from_date)
+        endDateLabel = findViewById<TextView>(R.id.to_date)
+
+        beginDateLabel.setOnClickListener { showDatePickerDialog(MainViewModel.DateType.BEGIN) }
+        endDateLabel.setOnClickListener { showDatePickerDialog(MainViewModel.DateType.END) }
+
+        viewModel.getAirportNamesListLiveData().observe(this) {
+            val adapter = ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item, it
+            )
+
+            val airportSpinner = findViewById<Spinner>(R.id.airport_spinner)
+            airportSpinner.adapter = adapter
         }
 
-        val arrayAdapter: ArrayAdapter<String?> = ArrayAdapter<String?>(this, android.R.layout.simple_list_item_1, formatedAirportsList)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = arrayAdapter
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (parent.getItemAtPosition(position) == "Choose Airport from list") {
-                }
-                else {
-                    val item = parent.getItemAtPosition(position).toString()
-                    Toast.makeText(parent.context, "Selected: $item", Toast.LENGTH_SHORT).show()
-                }
+
+        viewModel.getBeginDateLiveData().observe(this) {
+            beginDateLabel.text = Utils.dateToString(it.time)
+        }
+
+        viewModel.getEndDateLiveData().observe(this) {
+            endDateLabel.text = Utils.dateToString(it.time)
+        }
+
+
+    }
+
+    // open date picker dialog
+    private fun showDatePickerDialog(dateType: MainViewModel.DateType) {
+        // Date Select Listener.
+        val dateSetListener =
+            OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                viewModel.updateCalendarLiveData(dateType, calendar)
             }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
 
+        val currentCalendar = if (dateType == MainViewModel.DateType.BEGIN) viewModel.getBeginDateLiveData().value else viewModel.getEndDateLiveData().value
 
+        val datePickerDialog = DatePickerDialog(
+            this,
+            dateSetListener,
+            currentCalendar!!.get(Calendar.YEAR),
+            currentCalendar.get(Calendar.MONTH),
+            currentCalendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 }

@@ -6,28 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/airportsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Airports"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerAirports"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinnerAirports"
+    <Button
+        android:id="@+id/button"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Search"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -35,99 +23,108 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_begin="361dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintGuide_percent="0.5" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Rechercher"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/airportSwitch"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Switch
+        android:id="@+id/airport_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/departureLabel"
+        android:id="@+id/departure_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:text="Departure"
-        app:layout_constraintBottom_toBottomOf="@+id/airportSwitch"
-        app:layout_constraintEnd_toStartOf="@+id/airportSwitch"
-        app:layout_constraintTop_toTopOf="@+id/airportSwitch" />
+        app:layout_constraintBottom_toBottomOf="@+id/airport_switch"
+        app:layout_constraintEnd_toStartOf="@+id/airport_switch"
+        app:layout_constraintTop_toTopOf="@+id/airport_switch" />
 
     <TextView
-        android:id="@+id/arrivalLabel"
+        android:id="@+id/arrival_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:text="Arrival"
-        app:layout_constraintBottom_toBottomOf="@+id/airportSwitch"
-        app:layout_constraintStart_toEndOf="@+id/airportSwitch"
-        app:layout_constraintTop_toTopOf="@+id/airportSwitch" />
+        app:layout_constraintBottom_toBottomOf="@+id/airport_switch"
+        app:layout_constraintStart_toEndOf="@+id/airport_switch"
+        app:layout_constraintTop_toTopOf="@+id/airport_switch" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/airport_spinner"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/airport_switch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="205dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/fromLabel"
+        android:id="@+id/airport_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="De"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        android:layout_marginBottom="24dp"
+        android:text="Airport"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/airport_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/from_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="From"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/toLabel"
+        android:id="@+id/to_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="A"
+        android:text="To"
+        app:layout_constraintBottom_toBottomOf="@+id/from_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/from_label" />
 
     <TextView
-        android:id="@+id/fromDateLabel"
+        android:id="@+id/from_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="19/10/2022"
-        app:layout_constraintEnd_toEndOf="@+id/fromLabel"
-        app:layout_constraintStart_toStartOf="@+id/fromLabel"
-        app:layout_constraintTop_toBottomOf="@+id/fromLabel" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rectangle_shape"
+        android:padding="8dp"
+        android:text="12/10/2022"
+        app:layout_constraintEnd_toEndOf="@+id/from_label"
+        app:layout_constraintStart_toStartOf="@+id/from_label"
+        app:layout_constraintTop_toBottomOf="@+id/from_label" />
 
     <TextView
-        android:id="@+id/toDateLabel"
+        android:id="@+id/to_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="21/10/2022"
-        android:textColorHighlight="#B20071FA"
-        app:layout_constraintEnd_toEndOf="@+id/toLabel"
-        app:layout_constraintStart_toStartOf="@+id/toLabel"
-        app:layout_constraintTop_toBottomOf="@+id/toLabel" />
+        android:background="@drawable/rectangle_shape"
+        android:padding="8dp"
+        android:text="13/10/2022"
+        app:layout_constraintBottom_toBottomOf="@+id/from_date"
+        app:layout_constraintEnd_toEndOf="@+id/to_label"
+        app:layout_constraintStart_toStartOf="@+id/to_label"
+        app:layout_constraintTop_toTopOf="@+id/from_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
