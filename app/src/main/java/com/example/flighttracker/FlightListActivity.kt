@@ -1,5 +1,6 @@
 package com.example.flighttracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FlightListActivity : AppCompatActivity() {
+class FlightListActivity : AppCompatActivity(), FlightListFragment.FlightListFragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flight_list)
@@ -39,6 +40,20 @@ class FlightListActivity : AppCompatActivity() {
             //Attacher un layout manager à la recyclerview
             //recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         //})
+    }
+
+    override fun onCellClicked(flightModel: FlightModel) {
+        Log.i("MainActivity", "onFlightClicked: $flightModel")
+
+        val time = flightModel.lastSeen
+        val icao24 = flightModel.icao24
+
+        val intent = Intent(this, PathListActivity::class.java)
+
+        intent.putExtra("TIME",time)
+        intent.putExtra("ICAO24",icao24)
+
+        startActivity(intent)
     }
 
 }

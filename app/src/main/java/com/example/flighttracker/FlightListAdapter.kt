@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flightapp2022.FlightInfoCell
 
-class FlightListAdapter(val flightList: List<FlightModel>, val cellClickListener: OnCellClickListener) : RecyclerView.Adapter<FlightListAdapter.FlightListCelleViewHolder>() {
+class FlightListAdapter(val flightList: List<FlightModel>, val cellClickListener: OnCellClickListener) : RecyclerView.Adapter<FlightListAdapter.FlightListCelleViewHolder>(), View.OnClickListener {
 
     interface OnCellClickListener {
         fun onCellClicked(flightModel: FlightModel)
@@ -37,4 +37,7 @@ class FlightListAdapter(val flightList: List<FlightModel>, val cellClickListener
        return flightList.size
     }
 
+    override fun onClick(v: View?) {
+        //R.id.
+    }
 }

@@ -22,9 +22,15 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FlightListFragment : Fragment(), FlightListAdapter.OnCellClickListener {
+
+    interface FlightListFragmentListener {
+        fun onCellClicked(flightModel: FlightModel)
+    }
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var listener: FlightListFragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +87,7 @@ class FlightListFragment : Fragment(), FlightListAdapter.OnCellClickListener {
 
     override fun onCellClicked(flightModel: FlightModel) {
         Log.i("MainActivity", "onCellClickListener: $flightModel")
+        listener?.onCellClicked(flightModel)
     }
 
 }
